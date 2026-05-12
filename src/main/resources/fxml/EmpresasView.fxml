@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" spacing="10" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hito5.proyecto.controller.EmpresaViewController">
+
+    <Label style="-fx-font-size: 18px" text="Gestion de Empresas" />
+
+    <TableView fx:id="tablaEmpresas">
+        <columns>
+            <TableColumn fx:id="colNombre" text="Nombre" />
+            <TableColumn fx:id="colTelefono" text="Telefono" />
+            <TableColumn fx:id="colDireccion" text="Direccion" />
+            <TableColumn fx:id="colResponsable" text="Responable" />
+        </columns>
+    </TableView>
+
+
+	<HBox alignment="CENTER" spacing="10">
+			<Button onAction="#nuevaEmpresa" text="Añadir" />
+			<Button onAction="#editarEmpresa" text="Editar" />
+			<Button onAction="#eliminarEmpresa" text="Eliminar" />
+			<Button onAction="#volver" text="Volver" />
+			
+	</HBox>
+</VBox>
