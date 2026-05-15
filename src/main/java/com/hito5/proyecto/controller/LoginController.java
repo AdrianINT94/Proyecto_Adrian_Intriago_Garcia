@@ -51,13 +51,13 @@ public class LoginController {
         System.out.println("AdminPass (properties): " + adminPass);
 
         if (username.equals(adminUser) && password.equals(adminPass)) {
-            System.out.println("✅ LOGIN ADMIN OK");
+            System.out.println(" LOGIN ADMIN OK");
             stageManager.switchScene(FxmlView.ADMIN);
             return;
         }
 
         if (username.equals(profUser) && password.equals(profPass)) {
-            System.out.println("✅ LOGIN PROF OK");
+            System.out.println(" LOGIN PROF OK");
             stageManager.switchScene(FxmlView.ADMIN);
             return;
         }

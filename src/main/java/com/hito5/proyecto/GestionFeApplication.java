@@ -24,7 +24,7 @@ public class GestionFeApplication extends Application {
 
     @Override
     public void init() {
-        context = new SpringApplicationBuilder(GestionFeApplication.class).web(WebApplicationType.NONE).run();
+        context = new SpringApplicationBuilder(GestionFeApplication.class).web(WebApplicationType.SERVLET).run();
     }
 
     @Override

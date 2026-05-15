@@ -48,13 +48,13 @@ public class AlumnoService {
             
             writer.write("ID,Nombre,Email,Ciclo,Curso\n");
 
-            for (Alumno a : alumnos) {
+            for (Alumno alumno : alumnos) {
                 writer.write(
-                    a.getId() + "," +
-                    a.getNombre() + "," +
-                    a.getEmail() + "," +
-                    a.getCiclo() + "," +
-                    a.getCurso() + "\n"
+                    alumno.getId() + "," +
+                    alumno.getNombre() + "," +
+                    alumno.getEmail() + "," +
+                    alumno.getCiclo() + "," +
+                    alumno.getCurso() + "\n"
                 );
             }
 

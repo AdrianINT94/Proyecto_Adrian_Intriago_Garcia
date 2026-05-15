@@ -2,10 +2,12 @@ package com.hito5.proyecto.controller;
 
 import java.util.List;
 import org.springframework.stereotype.Controller;
-
+import javafx.beans.property.SimpleStringProperty;
 import com.hito5.proyecto.config.StageManager;
 import com.hito5.proyecto.model.Alumno;
+import com.hito5.proyecto.model.FE;
 import com.hito5.proyecto.service.AlumnoService;
+import com.hito5.proyecto.service.FEService;
 import com.hito5.proyecto.view.FxmlView;
 
 import javafx.collections.FXCollections;
@@ -24,14 +26,20 @@ public class AdminController {
     @FXML private TableColumn<Alumno, String> colEmail;
     @FXML private TableColumn<Alumno, String> colCiclo;
     @FXML private TableColumn<Alumno, Integer> colCurso;
-
+    @FXML private TableColumn<Alumno,String> colEmpresa;
+    @FXML private TableColumn<Alumno,String> colTutor;
+    @FXML private TableColumn<Alumno,String> colProfesor;
+    
+    
+    private final FEService feService;
     private final StageManager stageManager;
     private final AlumnoService alumnoService; 
 
    
-    public AdminController(StageManager stageManager, AlumnoService alumnoService) {
+    public AdminController(StageManager stageManager, AlumnoService alumnoService, FEService feService) {
         this.stageManager = stageManager;
         this.alumnoService = alumnoService;
+        this.feService = feService;
     }
 
     
@@ -42,11 +50,46 @@ public class AdminController {
             colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
             colCiclo.setCellValueFactory(new PropertyValueFactory<>("ciclo"));
             colCurso.setCellValueFactory(new PropertyValueFactory<>("curso"));
+            
+            
+            colEmpresa.setCellValueFactory(cellData -> {
+                Alumno alumno = cellData.getValue();
+                String nombre;
+
+                if (alumno.getEmpresa() != null) {
+                    nombre = alumno.getEmpresa().getNombre();
+                } else {
+                    nombre = ("Sin Asignar");
+                }
+
+                return new SimpleStringProperty(nombre);
+            });
+            
+            
+            colTutor.setCellValueFactory(cellData -> {
+               Alumno alumno = cellData.getValue();
+                FE fe = feService.findbyAlumno(alumno);
+                if (fe != null && fe.getTutorEmpresa() != null) {
+                    return new SimpleStringProperty(fe.getTutorEmpresa().getNombre());
+                } else {
+                    return new SimpleStringProperty("No asignado");
+                }
+            });
+            
+            
+            colProfesor.setCellValueFactory(cellData -> {
+            		Alumno alumno = cellData.getValue();
+                FE fe = feService.findbyAlumno(alumno);
+                if (fe != null && fe.getProfesor() != null) {
+                    return new SimpleStringProperty(fe.getProfesor().getNombre());
+                } else {
+                    return new SimpleStringProperty("Sin profesor");
+                }
+       });
 
             cargarAlumnos();
         }
     }
-
     private void cargarAlumnos() {
         List<Alumno> alumnos = alumnoService.findAll();
         tablaAlumnos.setItems(FXCollections.observableArrayList(alumnos));
@@ -97,7 +140,43 @@ public class AdminController {
     
     @FXML 
     private void exportarCSV() {
-        System.out.println("Click en exportar CSV");
+    	try ( java.io.PrintWriter csv = new java.io.PrintWriter("alumnos.csv")){
+    		
+    		csv.println("Nombre;Email;Ciclo;Curso;Empresa;Tutor;Profesor");
+    		
+    		for(Alumno alumno:tablaAlumnos.getItems()) {
+    			FE fe = feService.findbyAlumno(alumno);
+    			
+    			csv.print(alumno.getNombre()+ ";");
+    			csv.print(alumno.getEmail()+ ";");
+    			csv.print(alumno.getCiclo()+ ";");
+    			csv.print(alumno.getCurso()+ ";");
+    			
+    			
+    			if (alumno.getEmpresa() != null) {
+                    csv.print(alumno.getEmpresa().getNombre() + ";");
+                } else {
+                    csv.print("Sin Empresa;");
+                }
+
+                
+                if (fe != null && fe.getTutorEmpresa() != null) {
+                    csv.print(fe.getTutorEmpresa().getNombre() + ";");
+                } else {
+                    csv.print("Sin Tutor;");
+                }
+
+                if (fe != null && fe.getProfesor() != null) {
+                    csv.print(fe.getProfesor().getNombre());
+                } else {
+                    csv.print("Sin Profesor");
+                }
+
+                csv.println();
+    		}
+    	} catch (Exception e) {
+            System.out.println("Error al guardar el CSV");
+    	}
     }
     
     @FXML

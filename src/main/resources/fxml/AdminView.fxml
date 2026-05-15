@@ -15,10 +15,13 @@
 			<center>
 			<TableView fx:id="tablaAlumnos">
 				<columns>
-					<TableColumn fx:id="colNombre" prefWidth="150" text="Nombre" />
-					<TableColumn fx:id="colEmail" prefWidth="200" text="Email" />
-					<TableColumn fx:id="colCiclo" prefWidth="100" text="Ciclo" />
-					<TableColumn fx:id="colCurso" prefWidth="80" text="Curso" />
+					<TableColumn fx:id="colNombre" prefWidth="90.4000244140625" text="Nombre" />
+					<TableColumn fx:id="colEmail" prefWidth="104.0" text="Email" />
+					<TableColumn fx:id="colCiclo" prefWidth="121.60003662109375" text="Ciclo" />
+					<TableColumn fx:id="colCurso" prefWidth="102.4000244140625" text="Curso" />
+            <TableColumn fx:id="colEmpresa" prefWidth="190.39999389648438" text="Empresa" />
+            <TableColumn fx:id="colTutor" prefWidth="75.0" text="Tutor" />
+            <TableColumn fx:id="colProfesor" prefWidth="75.0" text="Profesor" />
 					
 				</columns>
 			</TableView>

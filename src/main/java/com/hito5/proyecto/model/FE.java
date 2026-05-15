@@ -12,8 +12,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "fct")
-public class FCT {
+@Table(name = "fe")
+public class FE {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,11 +38,11 @@ public class FCT {
     private LocalDate fechaInicio;
     private LocalDate fechaFin;
 
-    protected FCT() {
+    public FE() {
         
     }
 
-    public FCT(Alumno alumno, Empresa empresa, TutorEmpresa tutorEmpresa,
+    public FE(Alumno alumno, Empresa empresa, TutorEmpresa tutorEmpresa,
                Profesor profesor, LocalDate fechaInicio, LocalDate fechaFin) {
         this.alumno = alumno;
         this.empresa = empresa;
@@ -111,7 +111,7 @@ public class FCT {
 
 @Override
 public String toString() {
-    return "FCT de " + alumno.getNombre() + " en " + empresa.getNombre();
+    return "FE de " + alumno.getNombre() + " en " + empresa.getNombre();
     
 }
 	}
